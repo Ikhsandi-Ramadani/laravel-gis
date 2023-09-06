@@ -57,16 +57,16 @@
 
     <ul class="menu-inner py-1">
         <!-- Page -->
-        <li class="menu-item active">
+        <li class="menu-item {{ request()->is('/') ? 'active' : '' }}">
             <a href="index.html" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Page 1">Page 1</div>
+                <div>Dashboard</div>
             </a>
         </li>
-        <li class="menu-item">
-            <a href="page-2.html" class="menu-link">
+        <li class="menu-item {{ request()->is('pengawas*') ? 'active' : '' }}">
+            <a href="{{ route('pengawas.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-detail"></i>
-                <div data-i18n="Page 2">Page 2</div>
+                <div>Pengawas</div>
             </a>
         </li>
     </ul>

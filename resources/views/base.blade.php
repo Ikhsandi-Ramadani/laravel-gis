@@ -6,7 +6,7 @@
 <head>
     <title>@yield('title') | Admin</title>
     @include('partials.style')
-    @stack('custom-style')
+    @stack('style')
 </head>
 
 <body>
@@ -52,7 +52,7 @@
     <!-- / Layout wrapper -->
 
     @include('partials.script')
-    @stack('custom-script')
+    @stack('script')
 </body>
 
 </html>
