@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TypeController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\PengawasController;
 
 /*
@@ -19,3 +21,5 @@ Route::get('/', function () {
 });
 
 Route::resource('pengawas', PengawasController::class);
+Route::resource('type', TypeController::class);
+Route::resource('project', ProjectController::class);

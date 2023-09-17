@@ -69,5 +69,17 @@
                 <div>Pengawas</div>
             </a>
         </li>
+        <li class="menu-item {{ request()->is('type*') ? 'active' : '' }}">
+            <a href="{{ route('type.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-detail"></i>
+                <div>Type</div>
+            </a>
+        </li>
+        <li class="menu-item {{ request()->is('project*') ? 'active' : '' }}">
+            <a href="{{ route('project.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-detail"></i>
+                <div>Project</div>
+            </a>
+        </li>
     </ul>
 </aside>

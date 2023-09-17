@@ -1,13 +1,13 @@
 @extends('base')
 
-@section('title', 'Data Kegiatan')
+@section('title', 'Data Project')
 
 @push('style')
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="{{ asset('backend/vendor/libs/typeahead-js/typeahead.css') }}" />
-    <link rel="stylesheet" href="{{ asset('backend/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}" />
-    <link rel="stylesheet" href="{{ asset('backend/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css') }}" />
-    <link rel="stylesheet" href="{{ asset('backend/vendor/libs/flatpickr/flatpickr.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css') }}" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 @endpush
 
 @section('content')
@@ -46,7 +46,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($kegiatan as $keg)
+                        {{-- @foreach ($kegiatan as $keg)
                             <tr>
                                 <td>{{ $keg->no_keg }}</td>
                                 <td>{{ $keg->nama_keg }}</td>
@@ -110,7 +110,7 @@
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
+                        @endforeach --}}
                     </tbody>
                 </table>
             </div>
@@ -120,16 +120,12 @@
 
 @push('script')
     <!-- Vendors JS -->
-    <script src="{{ asset('backend/vendor/libs/datatables/jquery.dataTables.js') }}"></script>
-    <script src="{{ asset('backend/vendor/libs/datatables-bs5/datatables-bootstrap5.js') }}"></script>
-    <script src="{{ asset('backend/vendor/libs/datatables-responsive/datatables.responsive.js') }}"></script>
-    <script src="{{ asset('backend/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js') }}"></script>
-    <!-- Flat Picker -->
-    <script src="{{ asset('backend/vendor/libs/moment/moment.js') }}"></script>
-    <script src="{{ asset('backend/vendor/libs/flatpickr/flatpickr.js') }}"></script>
-
-    <!-- Page JS -->
-    {{-- <script src="{{ asset('backend/js/tables-datatables-advanced.js') }}"></script> --}}
+    <script src="{{ asset('assets/vendor/libs/datatables/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js') }}"></script>
+    <script src="{{ asset('assets/vendor/libs/datatables-responsive/datatables.responsive.js') }}"></script>
+    <script src="{{ asset('assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js') }}"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
     <script type="text/javascript">
         $(document).ready(function() {
