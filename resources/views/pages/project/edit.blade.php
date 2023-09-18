@@ -103,6 +103,19 @@
                             <input type="text" class="form-control" id="longitude" value="{{ $project->longitude }}"
                                 name="longitude" readonly required />
                         </div>
+                        <div class="col-md-12">
+                            <label class="form-label">Status</label> <br>
+                            <div class="form-check form-check-inline form-check-warning">
+                                <input class="form-check-input" type="radio" name="status" id="inlineRadio1"
+                                    value="0" {{ $project->status == 0 ? 'checked' : '' }} />
+                                <label class="form-check-label" for="inlineRadio1">Sedang berjalan</label>
+                            </div>
+                            <div class="form-check form-check-inline form-check-success">
+                                <input class="form-check-input" type="radio" name="status" id="inlineRadio2"
+                                    value="1" {{ $project->status == 1 ? 'checked' : '' }} />
+                                <label class="form-check-label" for="inlineRadio2">Selesai</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="pt-4">
