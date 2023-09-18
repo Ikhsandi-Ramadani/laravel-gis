@@ -6,6 +6,7 @@ use App\Models\Type;
 use App\Models\Pengawas;
 use App\Models\Projects;
 use Illuminate\Http\Request;
+use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 
 class ProjectController extends Controller
 {
@@ -50,7 +51,10 @@ class ProjectController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $project = Projects::findorfail($id);
+        $pengawass = Pengawas::all();
+        $types = Type::all();
+        return view('pages.project.edit', compact('pengawass', 'types', 'project'));
     }
 
     /**
@@ -58,7 +62,9 @@ class ProjectController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $project = Projects::findorfail($id);
+        $project->update($request->all());
+        return redirect()->route('project.index')->with('success', 'Project berhasil diubah.');
     }
 
     /**
@@ -66,6 +72,7 @@ class ProjectController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Projects::destroy($id);
+        return redirect()->route('project.index')->with('success', 'Project berhasil dihapus.');
     }
 }

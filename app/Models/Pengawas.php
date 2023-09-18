@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Pengawas extends Model
 {
@@ -22,4 +23,14 @@ class Pengawas extends Model
      * @var array
      */
     protected $fillable = ['nama', 'telp'];
+
+    /**
+     * Get all of the project for the Pengawas
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function project(): HasMany
+    {
+        return $this->hasMany(Projects::class);
+    }
 }

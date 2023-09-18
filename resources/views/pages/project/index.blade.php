@@ -34,66 +34,64 @@
                 <table class="table table-bordered" id="table-project">
                     <thead>
                         <tr>
-                            <th>No.</th>
                             <th>Nama Projek</th>
                             <th>Pengawas</th>
                             <th>Anggaran</th>
                             <th>Tender</th>
                             <th>Waktu</th>
-                            <th>Tempat</th>
                             <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {{-- @foreach ($kegiatan as $keg)
+                        @foreach ($projects as $project)
                             <tr>
-                                <td>{{ $keg->no_keg }}</td>
-                                <td>{{ $keg->nama_keg }}</td>
-                                <td>{{ $keg->opd->nama }}</td>
-                                <td>{{ \Carbon\Carbon::parse($keg->tanggal_keg)->isoFormat('dddd, D MMMM Y') }}</td>
-                                <td>{{ $keg->maps->alamat }}</td>
+                                <td>{{ $project->nama }}</td>
+                                <td>{{ $project->pengawas->nama }}</td>
+                                <td>Rp. {{ number_format($project->anggaran, '0', '', '.') }}</td>
+                                <td>{{ $project->tender }}</td>
+                                <td>{{ \Carbon\Carbon::parse($project->t_awal)->isoFormat('D') }} -
+                                    {{ \Carbon\Carbon::parse($project->t_akhir)->isoFormat('D MMMM Y') }}</td>
                                 <td>
-                                    @if ($keg->status == 'disetujui')
-                                        <span class="badge bg-label-success">{{ ucfirst(trans($keg->status)) }}</span>
-                                    @elseif ($keg->status == 'ditolak')
-                                        <span class="badge bg-label-danger">{{ ucfirst(trans($keg->status)) }}</span>
+                                    @if ($project->status == 1)
+                                        <span class="badge bg-label-success">Selesai</span>
                                     @else
-                                        <span class="badge bg-label-warning">{{ ucfirst(trans($keg->status)) }}</span>
+                                        <span class="badge bg-label-warning">Sedang Berjalan</span>
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{ route('project.show', $keg->id) }}" class="btn btn-warning btn-sm"><span><i
-                                                class="fa-solid fa-eye fa-lg"></i></span>
+                                    <a href="{{ route('project.show', $project->id) }}"
+                                        class="btn btn-warning btn-sm"><span><i class="fa-solid fa-eye fa-lg"></i></span>
                                     </a>
-                                    <a href="{{ route('project.edit', $keg->id) }}" class="btn btn-primary btn-sm"><span><i
-                                                class="fa-solid fa-pen-to-square fa-lg"></i> </span>
+                                    <a href="{{ route('project.edit', $project->id) }}"
+                                        class="btn btn-primary btn-sm"><span><i class="fa-solid fa-pen-to-square fa-lg"></i>
+                                        </span>
                                     </a>
                                     <button class="btn btn-danger btn-sm" type="button" data-bs-toggle="modal"
-                                        data-bs-target="#modalDelete{{ $keg->id }}"><span><i
+                                        data-bs-target="#modalDelete{{ $project->id }}"><span><i
                                                 class="fa-solid fa-trash fa-lg"></i> </span>
                                     </button>
                                     </a>
                                 </td>
                             </tr>
                             <!-- Modal Delete -->
-                            <div class="modal fade" id="modalDelete{{ $keg->id }}" tabindex="-1"
+                            <div class="modal fade" id="modalDelete{{ $project->id }}" tabindex="-1"
                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Hapus Kegiatan</h5>
+                                            <h5 class="modal-title" id="exampleModalLabel">Hapus Project</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close">
                                             </button>
                                         </div>
-                                        <form action="{{ route('project.destroy', $keg->id) }}" method="post">
+                                        <form action="{{ route('project.destroy', $project->id) }}" method="post">
                                             @method('DELETE')
                                             @csrf
                                             <input type="hidden" name="id" id="id"
-                                                value="{{ $keg->id }}">
+                                                value="{{ $project->id }}">
                                             <div class="modal-body text-wrap">
-                                                Anda yakin ingin menghapus Kegiatan <b>{{ $keg->nama_keg }} </b>ini ?
+                                                Anda yakin ingin menghapus Project <b>{{ $project->nama }} </b>ini ?
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-outline-secondary"
@@ -110,7 +108,7 @@
                                     </div>
                                 </div>
                             </div>
-                        @endforeach --}}
+                        @endforeach
                     </tbody>
                 </table>
             </div>

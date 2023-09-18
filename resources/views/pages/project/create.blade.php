@@ -115,23 +115,6 @@
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
     <script type="text/javascript">
-        // Untuk Validasi Data
-        var bsValidationForms = document.querySelectorAll(".needs-validation");
-
-        Array.prototype.slice.call(bsValidationForms).forEach(function(form) {
-            form.addEventListener(
-                "submit",
-                function(event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-
-                    form.classList.add("was-validated");
-                }, false
-            );
-        });
-        // End Validasi Data
 
         //   For Maps
         var mapCenter = ['-3.9941999757946536', '120.18023305568417'];
