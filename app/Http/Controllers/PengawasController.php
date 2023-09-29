@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pengawas;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PengawasController extends Controller
@@ -12,7 +13,7 @@ class PengawasController extends Controller
      */
     public function index()
     {
-        $pengawass = Pengawas::all();
+        $pengawass = User::where('role', 'pengawas')->get();
         return view('pages.pengawas.index', compact('pengawass'));
     }
 

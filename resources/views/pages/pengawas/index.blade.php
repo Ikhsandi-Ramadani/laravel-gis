@@ -32,6 +32,7 @@
                         <tr>
                             <th>No.</th>
                             <th>Nama Pengawas</th>
+                            <th>Email</th>
                             <th>No. Telp</th>
                             <th>Aksi</th>
                         </tr>
@@ -40,8 +41,9 @@
                         @foreach ($pengawass as $pengawas)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $pengawas->nama }}</td>
-                                <td>{{ $pengawas->telp }}</td>
+                                <td>{{ $pengawas->name }}</td>
+                                <td>{{ $pengawas->email }}</td>
+                                <td>{{ $pengawas->no_telp }}</td>
                                 <td>
                                     <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
                                         data-bs-target="#edit-{{ $pengawas->id }}"><span><i class="bx bx-edit me-sm-2"></i>

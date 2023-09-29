@@ -17,7 +17,17 @@
                       </div>
                       <div class="col-6 col-md-6">
                           <label class="form-label">No. Telpon</label>
-                          <input type="text" name="telp" class="form-control" placeholder="Masukkan No.Telp"
+                          <input type="text" name="no_telp" class="form-control" placeholder="Masukkan No.Telp"
+                              required />
+                      </div>
+                      <div class="col-6">
+                          <label class="form-label w-100">Email</label>
+                          <input name="email" class="form-control" type="email" placeholder="Masukkan Email"
+                              required />
+                      </div>
+                      <div class="col-6 col-md-6">
+                          <label class="form-label">Password</label>
+                          <input type="password" name="password" class="form-control" placeholder="Masukkan Password"
                               required />
                       </div>
                       <div class="col-12 text-center">
