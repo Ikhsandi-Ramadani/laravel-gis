@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Type;
+use App\Models\User;
 use App\Models\Pengawas;
 use App\Models\Projects;
 use Illuminate\Http\Request;
@@ -24,7 +25,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        $pengawass = Pengawas::all();
+        $pengawass = User::where('role', 'pengawas')->get();
         $types = Type::all();
         return view('pages.project.create', compact('pengawass', 'types'));
     }
@@ -52,7 +53,7 @@ class ProjectController extends Controller
     public function edit(string $id)
     {
         $project = Projects::findorfail($id);
-        $pengawass = Pengawas::all();
+        $pengawass = User::where('role', 'pengawas')->get();
         $types = Type::all();
         return view('pages.project.edit', compact('pengawass', 'types', 'project'));
     }

@@ -12,7 +12,7 @@
                       @csrf
                       <div class="col-6">
                           <label class="form-label w-100">Nama Pengawas</label>
-                          <input name="nama" class="form-control" type="text" placeholder="Masukkan Nama Pengawas"
+                          <input name="name" class="form-control" type="text" placeholder="Masukkan Nama Pengawas"
                               required />
                       </div>
                       <div class="col-6 col-md-6">
@@ -60,13 +60,22 @@
                               @method('PUT')
                               <div class="col-6">
                                   <label class="form-label w-100">Nama Pengawas</label>
-                                  <input name="nama" class="form-control" type="text" value="{{ $pengawas->nama }}"
+                                  <input name="name" class="form-control" type="text" value="{{ $pengawas->nama }}"
                                       required />
                               </div>
                               <div class="col-6 col-md-6">
                                   <label class="form-label">No. Telpon</label>
-                                  <input type="text" name="telp" class="form-control" value="{{ $pengawas->telp }}"
+                                  <input type="text" name="no_telp" class="form-control" value="{{ $pengawas->telp }}"
                                       required />
+                              </div>
+                              <div class="col-6">
+                                  <label class="form-label w-100">Email</label>
+                                  <input name="email" class="form-control" type="email" value="{{ $pengawas->email }}"
+                                      required />
+                              </div>
+                              <div class="col-6 col-md-6">
+                                  <label class="form-label">Password</label>
+                                  <input type="password" name="password" class="form-control" />
                               </div>
                               <div class="col-12 text-center">
                                   <button type="submit" class="btn btn-primary me-sm-3 me-1 mt-3">Simpan</button>

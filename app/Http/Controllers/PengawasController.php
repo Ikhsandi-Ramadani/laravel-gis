@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pengawas;
 use App\Models\User;
+use App\Models\Pengawas;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class PengawasController extends Controller
@@ -30,7 +31,14 @@ class PengawasController extends Controller
      */
     public function store(Request $request)
     {
-        Pengawas::create($request->all());
+        User::create([
+            'name' => $request->name,
+            'username' => Str::lower(str_replace(' ', '', $request->name)),
+            'no_telp' => $request->no_telp,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'role' => 'pengawas'
+        ]);
         return redirect()->route('pengawas.index')->with('success', 'Pengawas berhasil ditambahkan.');
     }
 
@@ -55,8 +63,17 @@ class PengawasController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $pengawas = Pengawas::findorfail($id);
-        $pengawas->update($request->all());
+        // $pengawas = Pengawas::findorfail($id);
+        // $pengawas->update($request->all());
+        $pengawas = User::findorfail($id);
+        $pengawas->update([
+            'name' => $request->name,
+            'username' => Str::lower(str_replace(' ', '', $request->name)),
+            'no_telp' => $request->no_telp,
+            'email' => $request->email,
+            'password' => $request->password ? bcrypt($request->password) : $pengawas->password,
+            'role' => 'pengawas'
+        ]);
         return redirect()->route('pengawas.index')->with('success', 'Pengawas berhasil diupdate.');
     }
 
@@ -65,7 +82,7 @@ class PengawasController extends Controller
      */
     public function destroy(string $id)
     {
-        $pengawas = Pengawas::findorfail($id);
+        $pengawas = User::findorfail($id);
         $pengawas->delete();
         return redirect()->route('pengawas.index')->with('success', 'Pengawas berhasil dihapus.');
     }
