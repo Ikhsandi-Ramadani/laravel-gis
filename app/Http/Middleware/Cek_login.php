@@ -21,7 +21,7 @@ class Cek_login
         }
         $user = Auth::user();
 
-        if ($user->level == $roles)
+        if ($user->role == $roles)
             return $next($request);
 
         return redirect('login')->with('error', "Anda Tidak Punya Akses");

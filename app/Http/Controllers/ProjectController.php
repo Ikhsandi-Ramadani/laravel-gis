@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kecamatan;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\Pengawas;
@@ -16,7 +17,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Projects::all();
+        $projects = Projects::where('status', 0)->get();
         return view('pages.project.index', compact('projects'));
     }
 
@@ -26,8 +27,8 @@ class ProjectController extends Controller
     public function create()
     {
         $pengawass = User::where('role', 'pengawas')->get();
-        $types = Type::all();
-        return view('pages.project.create', compact('pengawass', 'types'));
+        $kecamatans = Kecamatan::all();
+        return view('pages.project.create', compact('pengawass', 'kecamatans'));
     }
 
     /**
@@ -44,7 +45,8 @@ class ProjectController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $project = Projects::findorfail($id);
+        return view('pages.project.detail', compact('project'));
     }
 
     /**
@@ -54,8 +56,8 @@ class ProjectController extends Controller
     {
         $project = Projects::findorfail($id);
         $pengawass = User::where('role', 'pengawas')->get();
-        $types = Type::all();
-        return view('pages.project.edit', compact('pengawass', 'types', 'project'));
+        $kecamatans = Kecamatan::all();
+        return view('pages.project.edit', compact('pengawass', 'project', 'kecamatans'));
     }
 
     /**
@@ -75,5 +77,12 @@ class ProjectController extends Controller
     {
         Projects::destroy($id);
         return redirect()->route('project.index')->with('success', 'Project berhasil dihapus.');
+    }
+
+    // Monitoring
+    public function monitoring()
+    {
+        $projects = Projects::where('status', 1)->get();
+        return view('pages.monitoring.index', compact('projects'));
     }
 }

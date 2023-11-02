@@ -12,9 +12,9 @@ class AuthController extends Controller
     public function login()
     {
         if ($user = Auth::user()) {
-            if ($user->level == 'admin') {
-                return redirect()->intended('admin');
-            } elseif ($user->level == 'pengawas') {
+            if ($user->role == 'admin') {
+                return redirect()->route('dashboard');
+            } elseif ($user->role == 'pengawas') {
                 return redirect()->intended('pengawas');
             }
         }
@@ -34,9 +34,9 @@ class AuthController extends Controller
 
         if (Auth::attempt($kredensil)) {
             $user = Auth::user();
-            if ($user->level == 'admin') {
-                return redirect()->intended('admin');
-            } elseif ($user->level == 'pengawas') {
+            if ($user->role == 'admin') {
+                return redirect()->route('dashboard');
+            } elseif ($user->role == 'pengawas') {
                 return redirect()->intended('pengawas');
             }
             return redirect()->intended('/');
@@ -59,8 +59,7 @@ class AuthController extends Controller
             'password' => bcrypt($request->password),
             'role' => 'pengawas'
         ]);
-
-        return redirect("dashboard")->withToastSuccess('Registrasi Berhasil');
+        return redirect()->route('login')->withToastSuccess('Registrasi Berhasil');
     }
 
     public function logout(Request $request)

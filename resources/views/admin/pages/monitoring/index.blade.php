@@ -1,4 +1,4 @@
-@extends('base')
+@extends('layouts.admin')
 
 @section('title', 'Data Project')
 
@@ -22,14 +22,6 @@
 
         <!-- DataTable with Buttons -->
         <div class="card">
-            <div class="card-header flex-column flex-md-row">
-                <div class="text-end pt-3 pt-md-0">
-                    <a class="btn btn-primary" href="{{ route('project.create') }}"><span><i class="bx bx-plus me-sm-2"></i>
-                            <span class="d-none d-sm-inline-block">Tambah
-                                Data</span></span>
-                    </a>
-                </div>
-            </div>
             <div class="card-datatable text-nowrap">
                 <table class="table table-bordered" id="table-project">
                     <thead>
@@ -47,7 +39,7 @@
                         @foreach ($projects as $project)
                             <tr>
                                 <td>{{ $project->nama }}</td>
-                                <td>{{ $project->pengawas->nama }}</td>
+                                <td>{{ $project->pengawas->name }}</td>
                                 <td>Rp. {{ number_format($project->anggaran, '0', '', '.') }}</td>
                                 <td>{{ $project->tender }}</td>
                                 <td>{{ \Carbon\Carbon::parse($project->t_awal)->isoFormat('D') }} -
@@ -62,15 +54,6 @@
                                 <td>
                                     <a href="{{ route('project.show', $project->id) }}"
                                         class="btn btn-warning btn-sm"><span><i class="fa-solid fa-eye fa-lg"></i></span>
-                                    </a>
-                                    <a href="{{ route('project.edit', $project->id) }}"
-                                        class="btn btn-primary btn-sm"><span><i class="fa-solid fa-pen-to-square fa-lg"></i>
-                                        </span>
-                                    </a>
-                                    <button class="btn btn-danger btn-sm" type="button" data-bs-toggle="modal"
-                                        data-bs-target="#modalDelete{{ $project->id }}"><span><i
-                                                class="fa-solid fa-trash fa-lg"></i> </span>
-                                    </button>
                                     </a>
                                 </td>
                             </tr>

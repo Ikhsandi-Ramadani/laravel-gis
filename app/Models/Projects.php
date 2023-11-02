@@ -24,6 +24,16 @@ class Projects extends Model
      */
     public function pengawas(): BelongsTo
     {
-        return $this->belongsTo(Pengawas::class);
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the kecamatan that owns the Projects
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function kecamatan(): BelongsTo
+    {
+        return $this->belongsTo(Kecamatan::class);
     }
 }

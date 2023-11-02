@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Type;
+use App\Models\Kecamatan;
 use Illuminate\Http\Request;
 
-class TypeController extends Controller
+class KecamatanController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $types = Type::all();
-        return view('pages.type.index', compact('types'));
+        $kecamatans = Kecamatan::all();
+        return view('pages.kecamatan.index', compact('kecamatans'));
     }
 
     /**
@@ -29,8 +29,8 @@ class TypeController extends Controller
      */
     public function store(Request $request)
     {
-        Type::create($request->all());
-        return redirect()->route('type.index')->with('success', 'Type berhasil ditambahkan.');
+        Kecamatan::create($request->all());
+        return redirect()->route('kecamatan.index')->with('success', 'Kecamatan berhasil ditambahkan.');
     }
 
     /**
@@ -54,9 +54,9 @@ class TypeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $type = Type::findorfail($id);
-        $type->update($request->all());
-        return redirect()->route('type.index')->with('success', 'Type berhasil diupdate.');
+        $kecamatan = Kecamatan::findorfail($id);
+        $kecamatan->update($request->all());
+        return redirect()->route('kecamatan.index')->with('success', 'Kecamatan berhasil diupdate.');
     }
 
     /**
@@ -64,8 +64,8 @@ class TypeController extends Controller
      */
     public function destroy(string $id)
     {
-        $type = Type::findorfail($id);
-        $type->delete();
-        return redirect()->route('type.index')->with('success', 'Type berhasil dihapus.');
+        $kecamatan = Kecamatan::findorfail($id);
+        $kecamatan->delete();
+        return redirect()->route('kecamatan.index')->with('success', 'Kecamatan berhasil dihapus.');
     }
 }

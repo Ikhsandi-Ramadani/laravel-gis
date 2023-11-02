@@ -1,6 +1,6 @@
-@extends('base')
+@extends('layouts.admin')
 
-@section('title', 'Type')
+@section('title', 'Kecamatan')
 
 @push('style')
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}" />
@@ -14,7 +14,7 @@
                 <p>{{ $message }}</p>
             </div>
         @endif
-        <h4 class="fw-bold py-3 mb-4">Type</h4>
+        <h4 class="fw-bold py-3 mb-4">Kecamatan</h4>
 
         <!-- DataTable with Buttons -->
         <div class="card">
@@ -22,30 +22,30 @@
                 <div class="text-end pt-3 pt-md-0">
                     <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#tambah">
                         <span><i class="bx bx-plus me-sm-2"></i> <span class="d-none d-sm-inline-block">Tambah
-                                Type</span></span>
+                                Kecamatan</span></span>
                     </button>
                 </div>
             </div>
             <div class="card-datatable text-nowrap">
-                <table class="table table-bordered" id="table-type">
+                <table class="table table-bordered" id="table-kecamatan">
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Nama Type</th>
+                            <th>Nama </th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($types as $type)
+                        @foreach ($kecamatans as $kecamatan)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $type->nama }}</td>
+                                <td>{{ $kecamatan->nama }}</td>
                                 <td>
                                     <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
-                                        data-bs-target="#edit-{{ $type->id }}"><span><i class="bx bx-edit me-sm-2"></i>
+                                        data-bs-target="#edit-{{ $kecamatan->id }}"><span><i class="bx bx-edit me-sm-2"></i>
                                             <span class="d-none d-sm-inline-block">Edit</span></span> </button>
                                     <button class="btn btn-danger btn-sm" type="button" data-bs-toggle="modal"
-                                        data-bs-target="#hapus-{{ $type->id }}"><span><i
+                                        data-bs-target="#hapus-{{ $kecamatan->id }}"><span><i
                                                 class="bx bx-trash me-sm-2"></i> <span
                                                 class="d-none d-sm-inline-block">Delete</span></span> </button>
                                 </td>
@@ -54,7 +54,7 @@
                     </tbody>
                 </table>
                 {{-- Modal --}}
-                @include('pages.type.modal')
+                @include('pages.kecamatan.modal')
             </div>
         </div>
 
@@ -70,7 +70,7 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#table-type').DataTable({
+            $('#table-kecamatan').DataTable({
                 // Scroll options
                 scrollY: '300px',
                 scrollX: true,

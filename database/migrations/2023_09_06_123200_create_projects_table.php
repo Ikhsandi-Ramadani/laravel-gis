@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use League\CommonMark\Reference\Reference;
 
 return new class extends Migration
 {
@@ -15,8 +16,10 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->longText('deskripsi');
-            $table->string('kecamatan');
-            $table->unsignedBigInteger('pengawas_id');
+            $table->foreignId('kecamatan_id')->references('id')->on('kecamatans')->cascadeOnDelete();
+            $table->string('kelurahan');
+            $table->string('desa');
+            $table->foreignId('pengawas_id')->references('id')->on('users')->cascadeOnDelete();
             $table->integer('anggaran');
             $table->string('tender');
             $table->date('t_awal');

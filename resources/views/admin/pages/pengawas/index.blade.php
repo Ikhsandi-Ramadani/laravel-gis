@@ -1,4 +1,4 @@
-@extends('base')
+@extends('layouts.admin')
 
 @section('title', 'Pengawas')
 
