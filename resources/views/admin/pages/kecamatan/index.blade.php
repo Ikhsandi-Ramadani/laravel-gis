@@ -54,7 +54,7 @@
                     </tbody>
                 </table>
                 {{-- Modal --}}
-                @include('pages.kecamatan.modal')
+                @include('admin.pages.kecamatan.modal')
             </div>
         </div>
 

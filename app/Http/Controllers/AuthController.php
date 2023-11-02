@@ -15,10 +15,10 @@ class AuthController extends Controller
             if ($user->role == 'admin') {
                 return redirect()->route('dashboard');
             } elseif ($user->role == 'pengawas') {
-                return redirect()->intended('pengawas');
+                return redirect()->route('pengawas.dashboard');
             }
         }
-        return view('pages.auth.login');
+        return view('auth.login');
     }
 
     public function proses_login(Request $request)
@@ -37,7 +37,7 @@ class AuthController extends Controller
             if ($user->role == 'admin') {
                 return redirect()->route('dashboard');
             } elseif ($user->role == 'pengawas') {
-                return redirect()->intended('pengawas');
+                return redirect()->route('pengawas.dashboard');
             }
             return redirect()->intended('/');
         }
@@ -46,7 +46,7 @@ class AuthController extends Controller
 
     public function register()
     {
-        return view('pages.auth.register');
+        return view('auth.register');
     }
 
     public function proses_registrasi(Request $request)

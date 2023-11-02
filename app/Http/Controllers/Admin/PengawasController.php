@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\User;
 use App\Models\Pengawas;
@@ -15,7 +17,7 @@ class PengawasController extends Controller
     public function index()
     {
         $pengawass = User::where('role', 'pengawas')->get();
-        return view('pages.pengawas.index', compact('pengawass'));
+        return view('admin.pages.pengawas.index', compact('pengawass'));
     }
 
     /**

@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Kecamatan;
-use App\Models\Type;
 use App\Models\User;
-use App\Models\Pengawas;
 use App\Models\Projects;
 use Illuminate\Http\Request;
-use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 
 class ProjectController extends Controller
 {
@@ -18,7 +16,7 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Projects::where('status', 0)->get();
-        return view('pages.project.index', compact('projects'));
+        return view('admin.pages.project.index', compact('projects'));
     }
 
     /**
@@ -28,7 +26,7 @@ class ProjectController extends Controller
     {
         $pengawass = User::where('role', 'pengawas')->get();
         $kecamatans = Kecamatan::all();
-        return view('pages.project.create', compact('pengawass', 'kecamatans'));
+        return view('admin.pages.project.create', compact('pengawass', 'kecamatans'));
     }
 
     /**
@@ -46,7 +44,7 @@ class ProjectController extends Controller
     public function show(string $id)
     {
         $project = Projects::findorfail($id);
-        return view('pages.project.detail', compact('project'));
+        return view('admin.pages.project.detail', compact('project'));
     }
 
     /**
@@ -57,7 +55,7 @@ class ProjectController extends Controller
         $project = Projects::findorfail($id);
         $pengawass = User::where('role', 'pengawas')->get();
         $kecamatans = Kecamatan::all();
-        return view('pages.project.edit', compact('pengawass', 'project', 'kecamatans'));
+        return view('admin.pages.project.edit', compact('pengawass', 'project', 'kecamatans'));
     }
 
     /**
@@ -83,6 +81,6 @@ class ProjectController extends Controller
     public function monitoring()
     {
         $projects = Projects::where('status', 1)->get();
-        return view('pages.monitoring.index', compact('projects'));
+        return view('admin.pages.monitoring.index', compact('projects'));
     }
 }

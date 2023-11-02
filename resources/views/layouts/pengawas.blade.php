@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 
-<html lang="en" class="light-style" dir="ltr" data-theme="theme-default" data-assets-path="../../assets/"
+<html lang="en" class="light-style" dir="ltr" data-theme="theme-default" data-assets-path="{{ asset('assets') }}"
     data-template="horizontal-menu-template-no-customizer-starter">
 
 <head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
     <title>Pengawas</title>
     @include('partials.style')
-    @stack('style')
 </head>
 
 <body>
@@ -108,8 +111,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <span class="fw-semibold d-block">John Doe</span>
-                                                    <small class="text-muted">Admin</small>
+                                                    <span class="fw-semibold d-block">{{ auth()->user()->name }}</span>
+                                                    <small class="text-muted">{{ auth()->user()->email }}</small>
                                                 </div>
                                             </div>
                                         </a>
@@ -118,7 +121,7 @@
                                         <div class="dropdown-divider"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="auth-login-basic.html">
+                                        <a class="dropdown-item" href="{{ route('logout') }}">
                                             <i class="bx bx-power-off me-2"></i>
                                             <span class="align-middle">Log Out</span>
                                         </a>
@@ -143,10 +146,16 @@
                         <div class="container-xxl d-flex h-100">
                             <ul class="menu-inner py-1">
                                 <!-- Page -->
-                                <li class="menu-item active">
+                                <li class="menu-item">
                                     <a href="index.html" class="menu-link">
                                         <i class="menu-icon tf-icons bx bx-home-circle"></i>
                                         <div data-i18n="Page 1">Page 1</div>
+                                    </a>
+                                </li>
+                                <li class="menu-item active">
+                                    <a href="page-2.html" class="menu-link">
+                                        <i class="menu-icon tf-icons bx bx-detail"></i>
+                                        <div data-i18n="Page 2">Page 2</div>
                                     </a>
                                 </li>
                             </ul>
@@ -156,22 +165,28 @@
 
                     <!-- Content -->
 
-                    <div class="container-xxl flex-grow-1 container-p-y">
-                        <h4 class="fw-bold py-3 mb-4">Page 1</h4>
-                        <p>
-                            Sample page.<br />For more layout options use
-                            <a href="https://themeselection.com/tools/generator/sneat/html" target="_blank"
-                                class="fw-bold">HTML
-                                starter template generator</a>
-                            and refer
-                            <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation//layouts.html"
-                                target="_blank" class="fw-bold">Layout docs</a>.
-                        </p>
-                    </div>
+                    @yield('content')
                     <!--/ Content -->
 
                     <!-- Footer -->
-                    @include('partials.footer')
+                    <footer class="content-footer footer bg-footer-theme">
+                        <div
+                            class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+                            <div class="mb-2 mb-md-0">
+                                ©
+                                <script>
+                                    document.write(new Date().getFullYear());
+                                </script>
+                                , made with ❤️ by
+                                <a href="https://themeselection.com" target="_blank"
+                                    class="footer-link fw-bolder">ThemeSelection</a>
+                            </div>
+                            <div>
+                                <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
+                                    target="_blank" class="footer-link me-4">Documentation</a>
+                            </div>
+                        </div>
+                    </footer>
                     <!-- / Footer -->
 
                     <div class="content-backdrop fade"></div>
@@ -192,7 +207,6 @@
     <!--/ Layout wrapper -->
 
     @include('partials.script')
-    @stack('script')
 </body>
 
 </html>

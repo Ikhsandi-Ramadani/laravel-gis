@@ -58,7 +58,7 @@
                     </tbody>
                 </table>
                 {{-- Modal --}}
-                @include('pages.pengawas.modal')
+                @include('admin.pages.pengawas.modal')
             </div>
         </div>
 

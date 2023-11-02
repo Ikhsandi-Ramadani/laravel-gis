@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Kecamatan;
 use Illuminate\Http\Request;
@@ -13,7 +15,7 @@ class KecamatanController extends Controller
     public function index()
     {
         $kecamatans = Kecamatan::all();
-        return view('pages.kecamatan.index', compact('kecamatans'));
+        return view('admin.pages.kecamatan.index', compact('kecamatans'));
     }
 
     /**
