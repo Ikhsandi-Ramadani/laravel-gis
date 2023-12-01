@@ -4,12 +4,9 @@
     data-template="horizontal-menu-template-no-customizer-starter">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-
     <title>Pengawas</title>
     @include('partials.style')
+    @stack('style')
 </head>
 
 <body>
@@ -96,7 +93,7 @@
                                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                     data-bs-toggle="dropdown">
                                     <div class="avatar avatar-online">
-                                        <img src="../../assets/img/avatars/1.png" alt
+                                        <img src="{{ asset('assets/img/avatars/1.png') }}" alt
                                             class="w-px-40 h-auto rounded-circle" />
                                     </div>
                                 </a>
@@ -207,6 +204,7 @@
     <!--/ Layout wrapper -->
 
     @include('partials.script')
+    @stack('script')
 </body>
 
 </html>

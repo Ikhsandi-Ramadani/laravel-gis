@@ -57,32 +57,32 @@
 
     <ul class="menu-inner py-1">
         <!-- Page -->
-        <li class="menu-item {{ request()->is('/') ? 'active' : '' }}">
-            <a href="index.html" class="menu-link">
+        <li class="menu-item {{ request()->is('/admin') ? 'active' : '' }}">
+            <a href="{{ route('dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div>Dashboard</div>
             </a>
         </li>
-        <li class="menu-item {{ request()->is('pengawas*') ? 'active' : '' }}">
+        <li class="menu-item {{ request()->is('admin/pengawas*') ? 'active' : '' }}">
             <a href="{{ route('pengawas.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-detail"></i>
                 <div>Pengawas</div>
             </a>
         </li>
-        <li class="menu-item {{ request()->is('kecamatan*') ? 'active' : '' }}">
+        <li class="menu-item {{ request()->is('admin/kecamatan*') ? 'active' : '' }}">
             <a href="{{ route('kecamatan.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-detail"></i>
                 <div>Kecamatan</div>
             </a>
         </li>
-        <li class="menu-item {{ request()->is('project*') ? 'active' : '' }}">
+        <li class="menu-item {{ request()->is('admin/project*') ? 'active' : '' }}">
             <a href="{{ route('project.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-detail"></i>
                 <div>Project</div>
             </a>
         </li>
 
-        <li class="menu-item {{ request()->is('monitoring*') ? 'active' : '' }}">
+        <li class="menu-item {{ request()->is('admin/monitoring*') ? 'active' : '' }}">
             <a href="{{ route('monitoring') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-detail"></i>
                 <div>Monitoring</div>

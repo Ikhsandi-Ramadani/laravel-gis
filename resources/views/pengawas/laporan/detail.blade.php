@@ -25,7 +25,7 @@
                                         {{ \Carbon\Carbon::parse($project->t_akhir)->isoFormat('D MMMM Y') }}</td>
                                 </tr>
                             </table>
-                            <a href="{{ route('laporan.index', $project->id) }}" class="btn btn-primary mt-4">Detail</a>
+                            <a href="javascript:void(0)" class="btn btn-primary mt-4">Detail</a>
                         </div>
                     </div>
                 </div>

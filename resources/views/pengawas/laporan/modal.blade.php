@@ -5,29 +5,25 @@
               <div class="modal-body">
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   <div class="text-center mb-4">
-                      <h3>Tambah Pengawas</h3>
-                      <p>Silahkan menambahkan pengawas baru</p>
+                      <h3>Tambah Laporan</h3>
+                      <p>Silahkan menambahkan laporan baru</p>
                   </div>
-                  <form class="row g-3" action="{{ route('pengawas.store') }}" method="POST">
+                  <form class="row g-3" action="{{ route('laporan.store', $project->id) }}" method="POST"
+                      enctype="multipart/form-data">
                       @csrf
                       <div class="col-6">
-                          <label class="form-label w-100">Nama Pengawas</label>
-                          <input name="name" class="form-control" type="text" placeholder="Masukkan Nama Pengawas"
-                              required />
-                      </div>
-                      <div class="col-6 col-md-6">
-                          <label class="form-label">No. Telpon</label>
-                          <input type="text" name="no_telp" class="form-control" placeholder="Masukkan No.Telp"
+                          <label class="form-label w-100">Foto</label>
+                          <input name="foto" class="form-control" type="file" placeholder="Masukkan Foto Laporan"
                               required />
                       </div>
                       <div class="col-6">
-                          <label class="form-label w-100">Email</label>
-                          <input name="email" class="form-control" type="email" placeholder="Masukkan Email"
-                              required />
+                          <label class="form-label w-100">Tanggal</label>
+                          <input name="tanggal" class="form-control" type="date"
+                              placeholder="Masukkan Tanggal Laporan" required />
                       </div>
-                      <div class="col-6 col-md-6">
-                          <label class="form-label">Password</label>
-                          <input type="password" name="password" class="form-control" placeholder="Masukkan Password"
+                      <div class="col-12">
+                          <label class="form-label w-100">Catatan</label>
+                          <input name="catatan" class="form-control" type="text" placeholder="Masukkan Catatan"
                               required />
                       </div>
                       <div class="col-12 text-center">
@@ -44,38 +40,35 @@
   </div>
   <!--/ Add New Credit Card Modal -->
 
-  @foreach ($pengawass as $pengawas)
-      @isset($pengawas->id)
-          <div class="modal fade" id="edit-{{ $pengawas->id }}" tabindex="-1" aria-hidden="true">
+  @foreach ($laporans as $laporan)
+      @isset($laporan->id)
+          <div class="modal fade" id="edit-{{ $laporan->id }}" tabindex="-1" aria-hidden="true">
               <div class="modal-dialog modal-lg modal-dialog-centered1 modal-simple modal-add-new-cc">
                   <div class="modal-content p-3 p-md-5">
                       <div class="modal-body">
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           <div class="text-center mb-4">
-                              <h3>Edit Pengawas</h3>
-                              <p>Silahkan mengedit pengawas yang diinginkan</p>
+                              <h3>Edit Laporan</h3>
+                              <p>Silahkan mengedit laporan yang diinginkan</p>
                           </div>
-                          <form class="row g-3" action="{{ route('pengawas.update', $pengawas->id) }}" method="POST">
+                          <form class="row g-3" action="{{ route('laporan.update', [$project->id, $laporan->id]) }}"
+                              method="POST" enctype="multipart/form-data">
                               @csrf
                               @method('PUT')
                               <div class="col-6">
-                                  <label class="form-label w-100">Nama Pengawas</label>
-                                  <input name="name" class="form-control" type="text" value="{{ $pengawas->name }}"
-                                      required />
-                              </div>
-                              <div class="col-6 col-md-6">
-                                  <label class="form-label">No. Telpon</label>
-                                  <input type="text" name="no_telp" class="form-control" value="{{ $pengawas->no_telp }}"
-                                      required />
+                                  <label class="form-label w-100">Foto</label>
+                                  <input name="foto" class="form-control" type="file"
+                                      placeholder="Masukkan Foto Laporan" />
                               </div>
                               <div class="col-6">
-                                  <label class="form-label w-100">Email</label>
-                                  <input name="email" class="form-control" type="email" value="{{ $pengawas->email }}"
+                                  <label class="form-label w-100">Tanggal</label>
+                                  <input name="tanggal" class="form-control" type="date" value="{{ $laporan->tanggal }}"
                                       required />
                               </div>
-                              <div class="col-6 col-md-6">
-                                  <label class="form-label">Password</label>
-                                  <input type="password" name="password" class="form-control" />
+                              <div class="col-12">
+                                  <label class="form-label w-100">Catatan</label>
+                                  <input name="catatan" class="form-control" type="text" value="{{ $laporan->catatan }}"
+                                      required />
                               </div>
                               <div class="col-12 text-center">
                                   <button type="submit" class="btn btn-primary me-sm-3 me-1 mt-3">Simpan</button>
@@ -91,21 +84,21 @@
           </div>
 
           <!-- Modal Delete -->
-          <div class="modal fade" id="hapus-{{ $pengawas->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+          <div class="modal fade" id="hapus-{{ $laporan->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
               aria-hidden="true">
               <div class="modal-dialog" role="document">
                   <div class="modal-content">
                       <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Hapus Pengawas</h5>
+                          <h5 class="modal-title" id="exampleModalLabel">Hapus Laporan</h5>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                           </button>
                       </div>
-                      <form action="{{ route('pengawas.destroy', $pengawas->id) }}" method="post">
+                      <form action="{{ route('laporan.destroy', [$project->id, $laporan->id]) }}" method="post">
                           @method('DELETE')
                           @csrf
-                          <input type="hidden" name="id" id="id" value="{{ $pengawas->id }}">
+                          <input type="hidden" name="id" id="id" value="{{ $laporan->id }}">
                           <div class="modal-body">
-                              Anda yakin ingin menghapus Pengawas <b>{{ $pengawas->nama }}</b> ini ?
+                              Anda yakin ingin menghapus Laporan ini ?
                           </div>
                           <div class="modal-footer">
                               <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">

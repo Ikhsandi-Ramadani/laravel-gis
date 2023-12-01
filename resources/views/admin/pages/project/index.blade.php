@@ -133,22 +133,5 @@
                 scrollX: true,
             });
         });
-        // Untuk Validasi Data
-        var bsValidationForms = document.querySelectorAll(".needs-validation");
-
-        Array.prototype.slice.call(bsValidationForms).forEach(function(form) {
-            form.addEventListener(
-                "submit",
-                function(event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-
-                    form.classList.add("was-validated");
-                }, false
-            );
-        });
-        // End Validasi Data
     </script>
 @endpush
