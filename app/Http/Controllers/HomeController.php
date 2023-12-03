@@ -78,6 +78,21 @@ class HomeController extends Controller
     private function euclideanDistance($x1, $y1, $x2, $y2)
     {
         $hasil = sqrt(pow(($x1 - $x2), 2) + pow(($y1 - $y2), 2));
-        return  $hasil * 111.319;
+        return  $hasil * 111.319; // 1 derajat dalam kilometer
+    }
+
+    private function haversineDistance($lat1, $lon1, $lat2, $lon2)
+    {
+        $earthRadius = 6371; // Radius bumi dalam kilometer
+
+        $dLat = deg2rad($lat2 - $lat1);
+        $dLon = deg2rad($lon2 - $lon1);
+
+        $a = sin($dLat / 2) * sin($dLat / 2) + cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * sin($dLon / 2) * sin($dLon / 2);
+        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+
+        $distance = $earthRadius * $c;
+
+        return $distance;
     }
 }

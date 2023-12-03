@@ -14,7 +14,7 @@ Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/kecamatan/{id}', [HomeController::class, 'kecamatan'])->name('kecamatan');
 Route::get('/detail/{id}', [HomeController::class, 'detail'])->name('detail');
 Route::get('rumus', [HomeController::class, 'rumus'])->name('rumus');
-Route::post('hitung', [HomeController::class, 'hitung'])->name('hitung');
+Route::post('rumus', [HomeController::class, 'hitung'])->name('hitung');
 
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::get('register', [AuthController::class, 'register'])->name('register');
