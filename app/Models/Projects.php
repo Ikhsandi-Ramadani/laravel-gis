@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\User;
+use App\Models\Laporan;
+use App\Models\Kecamatan;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -35,5 +38,10 @@ class Projects extends Model
     public function kecamatan(): BelongsTo
     {
         return $this->belongsTo(Kecamatan::class);
+    }
+
+    public function laporan()
+    {
+        return $this->hasMany(Laporan::class,'project_id');
     }
 }

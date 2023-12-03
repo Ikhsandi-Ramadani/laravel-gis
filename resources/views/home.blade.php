@@ -1,21 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.web')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-        crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-        crossorigin=""></script>
-</head>
+@push('style')
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/leaflet/leaflet.css') }}" />
+    <style>
+        .leaflet-map {
+            height: 700px;
+        }
+    </style>
+@endpush
 
-<body>
-    <div id="map" style="width: 100%; height: 700px;"></div>
+@section('content')
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="leaflet-map" id="map"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
 
+@push('script')
+    <script src="{{ asset('assets/vendor/libs/leaflet/leaflet.js') }}"></script>
     <script>
         var peta1 = L.tileLayer(
             'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiaWtoc2FuZGlyYW1hZGFuaSIsImEiOiJjbG03bHk5OHAwMXM0M2Nvc240M2g1bG0wIn0.e-7lftp8mBogPgouQbxCKQ', {
@@ -71,13 +78,11 @@
         @foreach ($projects as $project)
 
             var informasi =
-                '{{ $project->nama }}';
+                '<table class="table table-bordered fs-6"><tbody><tr><td>Nama Project</td><td>: {{ $project->nama }}</td></tr><tr><td>Tanggal</td><td>: {{ \Carbon\Carbon::parse($project->t_awal)->isoFormat('D') }} - {{ \Carbon\Carbon::parse($project->t_akhir)->isoFormat('D MMMM Y') }}</td></tr><tr><td>Status</td><td>: @if ($project->status == 1)<span class="badge bg-label-success">Selesai</span>@else<span class="badge bg-label-warning">Sedang Berjalan</span>@endif</td></tr><tr><td colspan="2" class="text-center"><a href="{{ route('detail', $project->id) }}" class="btn btn-sm btn-light">Detail</a></td></tr></tbody></table>';
 
             L.marker([{{ $project->latitude }}, {{ $project->longitude }}], )
                 .addTo(project)
-            .bindPopup(informasi);
+                .bindPopup(informasi);
         @endforeach
     </script>
-</body>
-
-</html>
+@endpush

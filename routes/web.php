@@ -11,11 +11,18 @@ use App\Http\Controllers\Pengawas\LaporanController;
 use Spatie\FlareClient\View;
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
+Route::get('/kecamatan/{id}', [HomeController::class, 'kecamatan'])->name('kecamatan');
+Route::get('/detail/{id}', [HomeController::class, 'detail'])->name('detail');
+Route::get('rumus', [HomeController::class, 'rumus'])->name('rumus');
+Route::post('hitung', [HomeController::class, 'hitung'])->name('hitung');
+
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::get('register', [AuthController::class, 'register'])->name('register');
 Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');
 Route::post('proses_registrasi', [AuthController::class, 'proses_registrasi'])->name('proses_registrasi');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+
+
 
 Route::group(['middleware' => ['auth']], function () {
 
