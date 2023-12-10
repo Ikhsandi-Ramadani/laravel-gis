@@ -14,7 +14,7 @@ class KecamatanController extends Controller
      */
     public function index()
     {
-        $kecamatans = Kecamatan::all();
+        $kecamatans = Kecamatan::withCount('projects')->get();
         return view('admin.pages.kecamatan.index', compact('kecamatans'));
     }
 
@@ -23,7 +23,7 @@ class KecamatanController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.pages.kecamatan.create');
     }
 
     /**

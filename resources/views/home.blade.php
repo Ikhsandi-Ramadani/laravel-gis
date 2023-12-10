@@ -6,19 +6,54 @@
         .leaflet-map {
             height: 700px;
         }
+
+        .table-wrapper {
+            max-height: 700px;
+            overflow: auto;
+            display: inline-block;
+        }
     </style>
 @endpush
 
 @section('content')
     <div class="row">
-        <div class="col-12">
-            <div class="card">
+        <div class="col-8">
+            <div class="card h-100">
                 <div class="card-body">
                     <div class="leaflet-map" id="map"></div>
                 </div>
             </div>
         </div>
+        <div class="col-4">
+            <div class="card h-100">
+                <div class="table-wrapper">
+                    <table class="table table-bordered" id="table-project">
+                        <thead>
+                            <tr>
+                                <th>Kecamatan</th>
+                                <th>Jumlah Project</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($kecamatans as $kecamatan)
+                                <tr>
+                                    <td>{{ $kecamatan->nama }}</td>
+                                    <td>{{ $kecamatan->projects_count }}</td>
+                                    <td>
+                                        <a href="{{ route('kecamatan', $kecamatan->id) }}" class="btn btn-warning">
+                                            Detail
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
+
 @endsection
 
 @push('script')
@@ -44,7 +79,6 @@
         var peta3 = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         });
-
         var peta4 = L.tileLayer(
             'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiaWtoc2FuZGlyYW1hZGFuaSIsImEiOiJjbG03bHk5OHAwMXM0M2Nvc240M2g1bG0wIn0.e-7lftp8mBogPgouQbxCKQ', {
                 attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
@@ -53,12 +87,24 @@
                 id: 'mapbox/dark-v10'
             });
 
+
+
+        @foreach ($kecamatans as $data)
+            var data{{ $data->id }} = L.layerGroup();
+        @endforeach
         var project = L.layerGroup();
+
+
 
         var map = L.map('map', {
             center: [-4.027078357839807, 120.17884135764147],
-            zoom: 11,
-            layers: [peta2, project]
+            zoom: 10,
+            layers: [peta1,
+                @foreach ($kecamatans as $data)
+                    data{{ $data->id }},
+                @endforeach
+                project
+            ]
         });
 
 
@@ -70,10 +116,23 @@
         };
 
         var overlayer = {
+            @foreach ($kecamatans as $data)
+                "{{ $data->nama }}": data{{ $data->id }},
+            @endforeach
             "Project": project,
         };
 
         L.control.layers(baseMaps, overlayer).addTo(map);
+
+        @foreach ($kecamatans as $data)
+            L.geoJSON(<?= $data->geojson ?>, {
+                style: {
+                    color: 'white',
+                    fillColor: '{{ $data->warna }}',
+                    fillOpacity: 1.0,
+                },
+            }).addTo(data{{ $data->id }});
+        @endforeach
 
         @foreach ($projects as $project)
 

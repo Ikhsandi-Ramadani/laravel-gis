@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Projects;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Kecamatan extends Model
 {
@@ -15,4 +16,14 @@ class Kecamatan extends Model
      * @var array
      */
     protected $guarded = [];
+
+    /**
+     * Get all of the projects for the Kecamatan
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function projects()
+    {
+        return $this->hasMany(Projects::class);
+    }
 }

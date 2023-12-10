@@ -20,10 +20,14 @@
         <div class="card">
             <div class="card-header flex-column flex-md-row">
                 <div class="text-end pt-3 pt-md-0">
-                    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#tambah">
+                    {{-- <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#tambah">
                         <span><i class="bx bx-plus me-sm-2"></i> <span class="d-none d-sm-inline-block">Tambah
                                 Kecamatan</span></span>
-                    </button>
+                    </button> --}}
+                    <a class="btn btn-primary" href="{{ route('kecamatan.create') }}">
+                        <span><i class="bx bx-plus me-sm-2"></i> <span class="d-none d-sm-inline-block">Tambah
+                                Kecamatan</span></span>
+                    </a>
                 </div>
             </div>
             <div class="card-datatable text-nowrap">
@@ -32,6 +36,8 @@
                         <tr>
                             <th>No.</th>
                             <th>Nama </th>
+                            <th>Warna</th>
+                            <th>Jumlah Project</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -40,6 +46,8 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $kecamatan->nama }}</td>
+                                <td style="background-color: {{ $kecamatan->warna }}"></td>
+                                <td>{{ $kecamatan->projects_count }}</td>
                                 <td>
                                     <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
                                         data-bs-target="#edit-{{ $kecamatan->id }}"><span><i class="bx bx-edit me-sm-2"></i>

@@ -8,7 +8,8 @@
                       <h3>Tambah Pengawas</h3>
                       <p>Silahkan menambahkan pengawas baru</p>
                   </div>
-                  <form class="row g-3" action="{{ route('pengawas.store') }}" method="POST">
+                  <form class="row g-3" action="{{ route('pengawas.store') }}" method="POST"
+                      enctype="multipart/form-data">
                       @csrf
                       <div class="col-6">
                           <label class="form-label w-100">Nama Pengawas</label>
@@ -28,6 +29,11 @@
                       <div class="col-6 col-md-6">
                           <label class="form-label">Password</label>
                           <input type="password" name="password" class="form-control" placeholder="Masukkan Password"
+                              required />
+                      </div>
+                      <div class="col-12 col-md-12">
+                          <label class="form-label">Foto</label>
+                          <input type="file" name="foto" class="form-control" placeholder="Masukkan Foto"
                               required />
                       </div>
                       <div class="col-12 text-center">
@@ -55,7 +61,8 @@
                               <h3>Edit Pengawas</h3>
                               <p>Silahkan mengedit pengawas yang diinginkan</p>
                           </div>
-                          <form class="row g-3" action="{{ route('pengawas.update', $pengawas->id) }}" method="POST">
+                          <form class="row g-3" action="{{ route('pengawas.update', $pengawas->id) }}" method="POST"
+                              enctype="multipart/form-data">
                               @csrf
                               @method('PUT')
                               <div class="col-6">
@@ -76,6 +83,10 @@
                               <div class="col-6 col-md-6">
                                   <label class="form-label">Password</label>
                                   <input type="password" name="password" class="form-control" />
+                              </div>
+                              <div class="col-12 col-md-12">
+                                  <label class="form-label">Foto</label>
+                                  <input type="file" name="foto" class="form-control" placeholder="Masukkan Foto" />
                               </div>
                               <div class="col-12 text-center">
                                   <button type="submit" class="btn btn-primary me-sm-3 me-1 mt-3">Simpan</button>

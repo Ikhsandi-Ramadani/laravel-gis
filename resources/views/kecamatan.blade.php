@@ -115,11 +115,12 @@
             });
 
         var project = L.layerGroup();
+        var data{{ $kecamatan->id }} = L.layerGroup();
 
         var map = L.map('map', {
             center: [-4.027078357839807, 120.17884135764147],
             zoom: 11,
-            layers: [peta2, project]
+            layers: [peta2, data{{ $kecamatan->id }}, project]
         });
 
 
@@ -131,15 +132,26 @@
         };
 
         var overlayer = {
+            "{{ $kecamatan->nama }}": data{{ $kecamatan->id }},
             "Project": project,
         };
 
         L.control.layers(baseMaps, overlayer).addTo(map);
 
+        var kecamatan = L.geoJSON(<?= $kecamatan->geojson ?>, {
+            style: {
+                color: 'white',
+                fillColor: '{{ $kecamatan->warna }}',
+                fillOpacity: 1.0,
+            },
+        }).addTo(data{{ $kecamatan->id }});
+
+        map.fitBounds(kecamatan.getBounds());
+
         @foreach ($projects as $project)
 
-          var informasi =
-                '<table class="table table-bordered fs-6"><tbody><tr><td>Nama Project</td><td>: {{ $project->nama }}</td></tr><tr><td>Tanggal</td><td>: {{ \Carbon\Carbon::parse($project->t_awal)->isoFormat("D") }} - {{ \Carbon\Carbon::parse($project->t_akhir)->isoFormat("D MMMM Y") }}</td></tr><tr><td>Status</td><td>: @if ($project->status == 1)<span class="badge bg-label-success">Selesai</span>@else<span class="badge bg-label-warning">Sedang Berjalan</span>@endif</td></tr><tr><td colspan="2" class="text-center"><a href="{{ route("detail",$project->id) }}" class="btn btn-sm btn-light">Detail</a></td></tr></tbody></table>';
+            var informasi =
+                '<table class="table table-bordered fs-6"><tbody><tr><td>Nama Project</td><td>: {{ $project->nama }}</td></tr><tr><td>Tanggal</td><td>: {{ \Carbon\Carbon::parse($project->t_awal)->isoFormat('D') }} - {{ \Carbon\Carbon::parse($project->t_akhir)->isoFormat('D MMMM Y') }}</td></tr><tr><td>Status</td><td>: @if ($project->status == 1)<span class="badge bg-label-success">Selesai</span>@else<span class="badge bg-label-warning">Sedang Berjalan</span>@endif</td></tr><tr><td colspan="2" class="text-center"><a href="{{ route('detail', $project->id) }}" class="btn btn-sm btn-light">Detail</a></td></tr></tbody></table>';
 
             L.marker([{{ $project->latitude }}, {{ $project->longitude }}], )
                 .addTo(project)

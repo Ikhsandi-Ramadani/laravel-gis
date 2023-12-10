@@ -85,13 +85,8 @@
                             </select>
                         </div>
                         <div class="col-md-12">
-                            <label class="form-label">Kelurahan</label>
+                            <label class="form-label">Kelurahan/Desa</label>
                             <input type="text" class="form-control" value="{{ $project->kelurahan }}" name="kelurahan"
-                                required />
-                        </div>
-                        <div class="col-md-12">
-                            <label class="form-label">Desa</label>
-                            <input type="text" class="form-control" value="{{ $project->desa }}" name="desa"
                                 required />
                         </div>
                         <div class="col-md-12">

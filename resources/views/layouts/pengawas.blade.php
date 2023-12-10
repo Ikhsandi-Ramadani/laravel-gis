@@ -18,7 +18,7 @@
             <nav class="layout-navbar navbar navbar-expand-xl align-items-center bg-navbar-theme" id="layout-navbar">
                 <div class="container-xxl">
                     <div class="navbar-brand app-brand demo d-none d-xl-flex py-0 me-4">
-                        <a href="index.html" class="app-brand-link gap-2">
+                        <a href="{{ route('pengawas.dashboard') }}" class="app-brand-link gap-2">
                             <span class="app-brand-logo demo">
                                 <svg width="25" viewBox="0 0 25 42" version="1.1"
                                     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -66,7 +66,7 @@
                                     </g>
                                 </svg>
                             </span>
-                            <span class="app-brand-text demo menu-text fw-bolder">Sneat</span>
+                            <span class="app-brand-text demo menu-text fw-bolder">Pengawas</span>
                         </a>
 
                         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-xl-none">
@@ -138,7 +138,7 @@
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
                     <!-- Menu -->
-                    <aside id="layout-menu"
+                    {{-- <aside id="layout-menu"
                         class="layout-menu-horizontal menu-horizontal menu bg-menu-theme flex-grow-0">
                         <div class="container-xxl d-flex h-100">
                             <ul class="menu-inner py-1">
@@ -157,7 +157,7 @@
                                 </li>
                             </ul>
                         </div>
-                    </aside>
+                    </aside> --}}
                     <!-- / Menu -->
 
                     <!-- Content -->

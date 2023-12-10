@@ -33,13 +33,23 @@ class PengawasController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
+        ]);
+
+        $foto = $request->foto;
+        $destinationPath = 'foto/';
+        $profileImage = date('YmdHis') . "." . $foto->getClientOriginalExtension();
+        $foto->move($destinationPath, $profileImage);
+
         User::create([
             'name' => $request->name,
             'username' => Str::lower(str_replace(' ', '', $request->name)),
             'no_telp' => $request->no_telp,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'role' => 'pengawas'
+            'role' => 'pengawas',
+            'foto' => $profileImage
         ]);
         return redirect()->route('pengawas.index')->with('success', 'Pengawas berhasil ditambahkan.');
     }
@@ -65,17 +75,27 @@ class PengawasController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // $pengawas = Pengawas::findorfail($id);
-        // $pengawas->update($request->all());
         $pengawas = User::findorfail($id);
+
+        if ($request->has('foto')) {
+            $foto = $request->foto;
+            $destinationPath = 'foto/';
+            $profileImage = date('YmdHis') . "." . $foto->getClientOriginalExtension();
+            $foto->move($destinationPath, $profileImage);
+        } else {
+            $profileImage = $pengawas->foto;
+        }
+
         $pengawas->update([
             'name' => $request->name,
             'username' => Str::lower(str_replace(' ', '', $request->name)),
             'no_telp' => $request->no_telp,
             'email' => $request->email,
             'password' => $request->password ? bcrypt($request->password) : $pengawas->password,
-            'role' => 'pengawas'
+            'role' => 'pengawas',
+            'foto' => $profileImage
         ]);
+
         return redirect()->route('pengawas.index')->with('success', 'Pengawas berhasil diupdate.');
     }
 

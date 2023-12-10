@@ -31,6 +31,7 @@
                     <thead>
                         <tr>
                             <th>No.</th>
+                            <th>Foto</th>
                             <th>Nama Pengawas</th>
                             <th>Email</th>
                             <th>No. Telp</th>
@@ -41,6 +42,9 @@
                         @foreach ($pengawass as $pengawas)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
+                                <td>
+                                    <img src="/foto/{{ $pengawas->foto }}" style="height: 50px;width:100px;">
+                                </td>
                                 <td>{{ $pengawas->name }}</td>
                                 <td>{{ $pengawas->email }}</td>
                                 <td>{{ $pengawas->no_telp }}</td>

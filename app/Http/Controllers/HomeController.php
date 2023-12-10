@@ -11,7 +11,7 @@ class HomeController extends Controller
     public function home()
     {
         $projects = Projects::all();
-        $kecamatans = Kecamatan::all();
+        $kecamatans = Kecamatan::withCount('projects')->get();
         return view('home', compact('projects', 'kecamatans'));
     }
 

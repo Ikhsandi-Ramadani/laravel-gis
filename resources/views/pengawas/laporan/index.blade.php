@@ -40,11 +40,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Desa</td>
-                                            <td>{{ $project->desa }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>kelurahan</td>
+                                            <td>Kelurahan/Desa</td>
                                             <td>{{ $project->kelurahan }}</td>
                                         </tr>
                                         <tr>
@@ -70,6 +66,15 @@
         <div class="row mt-5">
             <div class="col-md-12">
                 <div class="card">
+                    {{-- Error --}}
+                    @if ($errors->any())
+                        <ul class="mt-2">
+                            @foreach ($errors->all() as $error)
+                                <li class="text-danger">{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    @endif
+                    {{-- End Error --}}
                     <div class="card-header flex-column flex-md-row">
                         <div class="text-end pt-3 pt-md-0">
                             <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#tambah">

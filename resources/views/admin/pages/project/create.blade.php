@@ -77,12 +77,8 @@
                             </select>
                         </div>
                         <div class="col-md-12">
-                            <label class="form-label">Kelurahan</label>
+                            <label class="form-label">Kelurahan/Desa</label>
                             <input type="text" class="form-control" placeholder="Kelurahan" name="kelurahan" required />
-                        </div>
-                        <div class="col-md-12">
-                            <label class="form-label">Desa</label>
-                            <input type="text" class="form-control" placeholder="Desa" name="desa" required />
                         </div>
                         <div class="col-md-12">
                             <label class="form-label">Latitude</label>

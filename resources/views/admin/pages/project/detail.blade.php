@@ -69,10 +69,6 @@
                                             <td>kelurahan</td>
                                             <td>{{ $project->kelurahan }}</td>
                                         </tr>
-                                        <tr>
-                                            <td>Desa</td>
-                                            <td>{{ $project->desa }}</td>
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
