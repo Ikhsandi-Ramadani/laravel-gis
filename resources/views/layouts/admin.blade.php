@@ -33,7 +33,7 @@
                     <!-- / Content -->
 
                     <!-- Footer -->
-                    @include('partials.footer')
+                    {{-- @include('partials.footer') --}}
                     <!-- / Footer -->
 
                     <div class="content-backdrop fade"></div>

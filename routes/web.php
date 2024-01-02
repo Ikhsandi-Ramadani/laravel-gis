@@ -1,14 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
+
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\PengawasController;
 use App\Http\Controllers\Admin\KecamatanController;
-use App\Http\Controllers\HomeController;
+
 use App\Http\Controllers\Pengawas\DashboardController;
 use App\Http\Controllers\Pengawas\LaporanController;
-use Spatie\FlareClient\View;
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/kecamatan/{id}', [HomeController::class, 'kecamatan'])->name('kecamatan');
@@ -27,9 +29,7 @@ Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 Route::group(['middleware' => ['auth']], function () {
     // Admin
     Route::prefix('admin')->middleware('cek_login:admin')->group(function () {
-        Route::get('/', function () {
-            return view('admin.pages.dashboard.index');
-        })->name('dashboard');
+        Route::get('/', AdminDashboardController::class)->name('dashboard');
         Route::resource('kecamatan', KecamatanController::class);
         Route::resource('pengawas', PengawasController::class);
         Route::get('monitoring', [ProjectController::class, 'monitoring'])->name('monitoring');

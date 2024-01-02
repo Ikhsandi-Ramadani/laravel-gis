@@ -24,7 +24,8 @@
                         <div class="container-xxl d-flex h-100 justify-content-between">
                             <a href="index.html" class="app-brand-link gap-2">
                                 <span class="app-brand-logo demo">
-                                    <img src="https://puprp.wajokab.go.id/asset/logo/dpuprp_light.png" alt="" width="280">
+                                    <img src="https://puprp.wajokab.go.id/asset/logo/dpuprp_light.png" alt=""
+                                        width="280">
                                 </span>
                                 {{-- <span class="app-brand-text demo menu-text fw-bolder">DPU Kab Wajo</span> --}}
                             </a>
@@ -77,7 +78,7 @@
                     <!--/ Content -->
 
                     <!-- Footer -->
-                    @include('partials.footer')
+                    {{-- @include('partials.footer') --}}
                     <!-- / Footer -->
 
                     <div class="content-backdrop fade"></div>
