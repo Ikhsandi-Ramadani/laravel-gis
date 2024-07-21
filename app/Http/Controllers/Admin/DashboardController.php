@@ -19,6 +19,6 @@ class DashboardController extends Controller
         $kecamatan = Kecamatan::count();
         $berjalan = Projects::where("status", 0)->get()->count();
         $selesai = Projects::where("status", 1)->get()->count();
-        return view("admin.pages.dashboard.index", compact("pengawas", 'kecamatan', 'berjalan', 'selesai'));
+        return view("admin.pages.dashboard.index", compact('pengawas', 'kecamatan', 'berjalan', 'selesai'));
     }
 }

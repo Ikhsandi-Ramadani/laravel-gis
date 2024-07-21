@@ -31,7 +31,10 @@
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="email" class="form-control" name="email" placeholder="Enter your email"
-                                    autofocus required />
+                                    value="{{ old('email') }}" autofocus required />
+                                @error('email')
+                                    <div class="alert alert-danger mt-1">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="mb-3 form-password-toggle">
                                 <div class="d-flex justify-content-between">
@@ -43,16 +46,13 @@
                                         aria-describedby="password" />
                                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                                 </div>
+                                @error('password')
+                                    <div class="alert alert-danger mt-1">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="mb-3">
                                 <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
                             </div>
-                            {{-- <p class="text-center">
-                                <span>Belum Punya Akun ?</span>
-                                <a href="{{ route('register') }}">
-                                    <span>Daftar Disini</span>
-                                </a>
-                            </p> --}}
                         </form>
 
                     </div>

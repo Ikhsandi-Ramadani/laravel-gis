@@ -41,7 +41,10 @@ class AuthController extends Controller
             }
             return redirect()->intended('/');
         }
-        return redirect('login')->withToastError('Email atau Password Salah !');
+        // return redirect('login')->withToastError('Email atau Password Salah !');
+        return back()->withErrors([
+            'email' => 'Email atau password salah.',
+        ])->withInput($request->only('email'));
     }
 
     public function register()
