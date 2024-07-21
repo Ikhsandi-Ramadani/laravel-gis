@@ -42,8 +42,10 @@ class AuthController extends Controller
             return redirect()->intended('/');
         }
         // return redirect('login')->withToastError('Email atau Password Salah !');
+        // Custom error messages for email and password
         return back()->withErrors([
-            'email' => 'Email atau password salah.',
+            'email' => 'Email yang Anda masukkan salah.',
+            'password' => 'Password yang Anda masukkan salah.',
         ])->withInput($request->only('email'));
     }
 

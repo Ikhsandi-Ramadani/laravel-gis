@@ -24,10 +24,10 @@
                         <span><i class="bx bx-plus me-sm-2"></i> <span class="d-none d-sm-inline-block">Tambah
                                 Kecamatan</span></span>
                     </button> --}}
-                    <a class="btn btn-primary" href="{{ route('kecamatan.create') }}">
+                    {{-- <a class="btn btn-primary" href="{{ route('kecamatan.create') }}">
                         <span><i class="bx bx-plus me-sm-2"></i> <span class="d-none d-sm-inline-block">Tambah
                                 Kecamatan</span></span>
-                    </a>
+                    </a> --}}
                 </div>
             </div>
             <div class="card-datatable text-nowrap">
