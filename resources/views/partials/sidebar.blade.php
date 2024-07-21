@@ -227,11 +227,11 @@
             </a>
         </li>
 
-        <li class="menu-item {{ request()->is('admin/monitoring*') ? 'active' : '' }}">
+        {{-- <li class="menu-item {{ request()->is('admin/monitoring*') ? 'active' : '' }}">
             <a href="{{ route('monitoring') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-detail"></i>
                 <div>Monitoring</div>
             </a>
-        </li>
+        </li> --}}
     </ul>
 </aside>

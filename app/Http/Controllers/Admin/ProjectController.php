@@ -15,7 +15,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Projects::where('status', 0)->get();
+        $projects = Projects::all();
         return view('admin.pages.project.index', compact('projects'));
     }
 
