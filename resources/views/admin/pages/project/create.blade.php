@@ -83,12 +83,12 @@
                         <div class="col-md-12">
                             <label class="form-label">Latitude</label>
                             <input type="text" class="form-control" id="latitude" placeholder="Latitude" name="latitude"
-                                readonly required />
+                             required />
                         </div>
                         <div class="col-md-12">
                             <label class="form-label">Longitude</label>
                             <input type="text" class="form-control" id="longitude" placeholder="Longitude"
-                                name="longitude" readonly required />
+                                name="longitude" required />
                         </div>
                     </div>
                 </div>
