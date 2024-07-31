@@ -24,11 +24,18 @@
                 @csrf
                 <h5 class="card-header" style="padding: 1.5rem 0">Data Project</h5>
                 <div class="row g-3">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
+                        <label class="form-label">Jenis Project</label>
+                        <select name="jenis" id="jenis" class="form-control">
+                            <option value="pdam">PDAM</option>
+                            <option value="pamsimas">PAMSIMAS</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
                         <label class="form-label">Nama Project</label>
                         <input type="text" class="form-control" placeholder="Nama Project" name="nama" required />
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label class="form-label">Pengawas</label>
                         <select name="pengawas_id" class="form-control" required>
                             @foreach ($pengawass as $pengawas)
@@ -83,7 +90,7 @@
                         <div class="col-md-12">
                             <label class="form-label">Latitude</label>
                             <input type="text" class="form-control" id="latitude" placeholder="Latitude" name="latitude"
-                             required />
+                                required />
                         </div>
                         <div class="col-md-12">
                             <label class="form-label">Longitude</label>

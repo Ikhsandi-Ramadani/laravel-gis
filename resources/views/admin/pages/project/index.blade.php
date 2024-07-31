@@ -35,6 +35,7 @@
                     <thead>
                         <tr>
                             <th>Nama Projek</th>
+                            <th>Jenis</th>
                             <th>Pengawas</th>
                             <th>Anggaran</th>
                             <th>Tender</th>
@@ -47,6 +48,7 @@
                         @foreach ($projects as $project)
                             <tr>
                                 <td>{{ $project->nama }}</td>
+                                <td class="text-uppercase">{{ $project->jenis }}</td>
                                 <td>{{ $project->pengawas->name }}</td>
                                 <td>Rp. {{ number_format($project->anggaran, '0', '', '.') }}</td>
                                 <td>{{ $project->tender }}</td>

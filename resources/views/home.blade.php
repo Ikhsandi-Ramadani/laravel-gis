@@ -53,7 +53,6 @@
             </div>
         </div>
     </div>
-
 @endsection
 
 @push('script')
@@ -135,11 +134,25 @@
         @endforeach
 
         @foreach ($projects as $project)
+            @if ($project->jenis == 'pdam')
+                var icon = L.icon({
+                    iconUrl: '{{ asset('pdam.png') }}',
+                    iconSize: [40, 40],
+                });
+            @else
+                var icon = L.icon({
+                    iconUrl: '{{ asset('pamsimas.png') }}',
+                    iconSize: [40, 40],
+                });
+            @endif
+
 
             var informasi =
                 '<table class="table table-bordered fs-6"><tbody><tr><td>Nama Project</td><td>: {{ $project->nama }}</td></tr><tr><td>Tanggal</td><td>: {{ \Carbon\Carbon::parse($project->t_awal)->isoFormat('D') }} - {{ \Carbon\Carbon::parse($project->t_akhir)->isoFormat('D MMMM Y') }}</td></tr><tr><td>Status</td><td>: @if ($project->status == 1)<span class="badge bg-label-success">Selesai</span>@else<span class="badge bg-label-warning">Sedang Berjalan</span>@endif</td></tr><tr><td colspan="2" class="text-center"><a href="{{ route('detail', $project->id) }}" class="btn btn-sm btn-light">Detail</a></td></tr></tbody></table>';
 
-            L.marker([{{ $project->latitude }}, {{ $project->longitude }}], )
+            L.marker([{{ $project->latitude }}, {{ $project->longitude }}], {
+                    icon: icon
+                })
                 .addTo(project)
                 .bindPopup(informasi);
         @endforeach
