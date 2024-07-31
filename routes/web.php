@@ -33,6 +33,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('kecamatan', KecamatanController::class);
         Route::resource('pengawas', PengawasController::class);
         Route::get('monitoring', [ProjectController::class, 'monitoring'])->name('monitoring');
+        Route::post('import', [ProjectController::class, 'import'])->name('project.import');
         Route::resource('project', ProjectController::class);
     });
     // Pengawas

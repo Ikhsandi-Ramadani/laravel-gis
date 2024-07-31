@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Kecamatan;
 use App\Models\User;
 use App\Models\Projects;
+use App\Models\Kecamatan;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Imports\ProjectImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProjectController extends Controller
 {
@@ -82,5 +84,16 @@ class ProjectController extends Controller
     {
         $projects = Projects::where('status', 1)->get();
         return view('admin.pages.monitoring.index', compact('projects'));
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv',
+        ]);
+
+        Excel::import(new ProjectImport, $request->file('file'));
+
+        return redirect()->back()->with('success', 'Data imported successfully.');
     }
 }
