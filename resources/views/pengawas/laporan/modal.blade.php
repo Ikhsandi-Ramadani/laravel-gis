@@ -18,8 +18,8 @@
                       </div>
                       <div class="col-6">
                           <label class="form-label w-100">Tanggal</label>
-                          <input name="tanggal" class="form-control" type="date"
-                              placeholder="Masukkan Tanggal Laporan" required />
+                          <input name="tanggal" id="tanggal" class="form-control" type="text"
+                              placeholder="Masukkan Tanggal Laporan" required readonly />
                       </div>
                       <div class="col-12">
                           <label class="form-label w-100">Catatan</label>
@@ -62,8 +62,7 @@
                               </div>
                               <div class="col-6">
                                   <label class="form-label w-100">Tanggal</label>
-                                  <input name="tanggal" class="form-control" type="date" value="{{ $laporan->tanggal }}"
-                                      required />
+                                  <input name="tanggal" id="tanggal2" class="form-control" type="text" readonly required />
                               </div>
                               <div class="col-12">
                                   <label class="form-label w-100">Catatan</label>

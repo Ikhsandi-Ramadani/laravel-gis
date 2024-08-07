@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Pengawas;
 
-use App\Http\Controllers\Controller;
 use App\Models\Laporan;
 use App\Models\Projects;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use App\Http\Controllers\Controller;
 
 class LaporanController extends Controller
 {
@@ -38,14 +39,19 @@ class LaporanController extends Controller
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
-        $fileName = time() . '.' . $request->foto->extension();
-        $request->foto->storeAs('public/foto', $fileName);
+        $image = $request->file('foto');
+        $fileName = time() . '.' . $image->getClientOriginalExtension();
+        $destinationPath = public_path('images');
+        $image->move($destinationPath, $fileName);
+        $url = asset('images/' . $fileName);
+
+        $date = Carbon::createFromFormat('d/m/Y', $request->tanggal)->format('Y-m-d');
 
         Laporan::create([
             'project_id' => $project_id,
-            'foto'      => $fileName,
+            'foto'      => $url,
             'catatan'   => $request->catatan,
-            'tanggal'   => $request->tanggal
+            'tanggal'   => $date
         ]);
 
         return redirect()->route('laporan.index', $project_id)->with('success', 'Laporan berhasil ditambahkan.');
@@ -80,24 +86,32 @@ class LaporanController extends Controller
 
         $laporan = Laporan::findorfail($id);
 
-        if ($request->has('foto')) {
-            $path = public_path() . '/storage/foto/' . $laporan->foto;
-            unlink($path);
+        $date = Carbon::createFromFormat('d/m/Y', $request->tanggal)->format('Y-m-d');
 
-            $fileName = time() . '.' . $request->foto->extension();
-            $request->foto->storeAs('public/foto', $fileName);
+        if ($request->has('foto')) {
+            $path = public_path('images/' . $laporan->foto); 
+            if (file_exists($path)) {
+                unlink($path);
+            }
+
+
+            $image = $request->file('foto');
+            $fileName = time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('images');
+            $image->move($destinationPath, $fileName);
+            $url = asset('images/' . $fileName);
 
             $laporan->update([
                 'project_id' => $project_id,
-                'foto'      => $fileName,
+                'foto'      => $url,
                 'catatan'   => $request->catatan,
-                'tanggal'   => $request->tanggal
+                'tanggal'   => $date
             ]);
         } else {
             $laporan->update([
                 'project_id' => $project_id,
                 'catatan'   => $request->catatan,
-                'tanggal'   => $request->tanggal
+                'tanggal'   => $date
             ]);
         }
 
@@ -110,8 +124,11 @@ class LaporanController extends Controller
     public function destroy($project_id, string $id)
     {
         $laporan = Laporan::findorfail($id);
-        $path = public_path() . '/storage/foto/' . $laporan->foto;
-        unlink($path);
+        $path = public_path('images/' . $laporan->foto); 
+        if (file_exists($path)) {
+            unlink($path);
+        }
+
         $laporan->delete();
 
         return redirect()->route('laporan.index', $project_id)->with('success', 'Laporan berhasil dihapus.');

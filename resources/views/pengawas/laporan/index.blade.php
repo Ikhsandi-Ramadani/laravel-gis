@@ -100,8 +100,7 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>
                                             @if ($laporan->foto)
-                                                <img src="{{ asset('storage/foto/' . $laporan->foto) }}"
-                                                    style="height: 50px;width:100px;">
+                                                <img src="{{ $laporan->foto }}" style="height: 50px;width:100px;">
                                             @else
                                                 <span>Belum ada gambar</span>
                                             @endif
@@ -145,6 +144,18 @@
                 scrollX: true,
             });
         });
+
+        // Function to format the date as dd/mm/yyyy
+        function formatDate(date) {
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+
+        // Set the input value to today's date
+        document.getElementById('tanggal').value = formatDate(new Date());
+        document.getElementById('tanggal2').value = formatDate(new Date());
 
         var peta1 = L.tileLayer(
             'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiaWtoc2FuZGlyYW1hZGFuaSIsImEiOiJjbG03bHk5OHAwMXM0M2Nvc240M2g1bG0wIn0.e-7lftp8mBogPgouQbxCKQ', {
@@ -196,28 +207,5 @@
 
         var marker = new L.marker(curLocation);
         map.addLayer(marker);
-
-        //ambil koordinat saat marker di drag n drop
-        // marker.on('dragend', function(event) {
-        //     var position = marker.getLatLng();
-        //     marker.setLatLng(position, {
-        //         draggable: 'true',
-        //     }).bindPopup(position).update();
-        //     //console.log(position.lat + "," + position.lng);
-        //     $("#posisi").val(position.lat + "," + position.lng).keyup();
-        // });
-
-        //ambil koordinat saatmap diklik
-        // var posisi = document.querySelector("[name=posisi]");
-        // map.on("click", function(event) {
-        //     var lat = event.latlng.lat;
-        //     var lng = event.latlng.lng;
-        //     if (!marker) {
-        //         marker = L.marker(event.latlng).addTo(map);
-        //     } else {
-        //         marker.setLatLng(event.latlng);
-        //     }
-        //     posisi.value = lat + "," + lng;
-        // });
     </script>
 @endpush

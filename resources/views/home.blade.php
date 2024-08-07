@@ -128,22 +128,36 @@
                 style: {
                     color: 'white',
                     fillColor: '{{ $data->warna }}',
-                    fillOpacity: 1.0,
+                    fillOpacity: 0.1,
                 },
             }).addTo(data{{ $data->id }});
         @endforeach
 
         @foreach ($projects as $project)
             @if ($project->jenis == 'pdam')
-                var icon = L.icon({
-                    iconUrl: '{{ asset('pdam.png') }}',
-                    iconSize: [40, 40],
-                });
+                @if ($project->status == 0)
+                    var icon = L.icon({
+                        iconUrl: '{{ asset('pdam-progress.png') }}',
+                        iconSize: [40, 40],
+                    });
+                @else
+                    var icon = L.icon({
+                        iconUrl: '{{ asset('pdam-selesai.png') }}',
+                        iconSize: [40, 40],
+                    });
+                @endif
             @else
-                var icon = L.icon({
-                    iconUrl: '{{ asset('pamsimas.png') }}',
-                    iconSize: [40, 40],
-                });
+                @if ($project->status == 0)
+                    var icon = L.icon({
+                        iconUrl: '{{ asset('pamsimas-progress.png') }}',
+                        iconSize: [40, 40],
+                    });
+                @else
+                    var icon = L.icon({
+                        iconUrl: '{{ asset('pamsimas-selesai.png') }}',
+                        iconSize: [40, 40],
+                    });
+                @endif
             @endif
 
 
