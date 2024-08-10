@@ -142,7 +142,7 @@
             style: {
                 color: 'white',
                 fillColor: '{{ $kecamatan->warna }}',
-                fillOpacity: 1.0,
+                fillOpacity: 0.5,
             },
         }).addTo(data{{ $kecamatan->id }});
 
