@@ -121,6 +121,26 @@
                         </div>
                     </div>
                 </div>
+                <h5 class="card-header" style="padding: 1.5rem 0">Sumber Air</h5>
+                <div class="row g-3">
+                    <div class="col-md-8">
+                        <label class="form-label">Maps</label>
+                        <div style="min-height: 500px;" id="mapContainer2"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Detail Lokasi</label>
+                        <div class="col-md-12">
+                            <label class="form-label">Latitude</label>
+                            <input type="text" class="form-control" id="latitude2" placeholder="Latitude"
+                                name="sumber_lat" required value="{{ $project->sumber_lat }}" />
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label">Longitude</label>
+                            <input type="text" class="form-control" id="longitude2" placeholder="Longitude"
+                                name="sumber_long" required value="{{ $project->sumber_long }}" />
+                        </div>
+                    </div>
+                </div>
                 <div class="pt-4">
                     <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
                     <a href="{{ route('project.index') }}" class="btn btn-label-secondary">Cancel</a>
@@ -140,12 +160,18 @@
     <script type="text/javascript">
         //   For Maps
         var mapCenter = [{{ $project->latitude }}, {{ $project->longitude }}];
+        var mapCenter2 = [{{ $project->sumber_lat }}, {{ $project->sumber_long }}];
         var map = L.map('mapContainer').setView(mapCenter, 15);
+        var map2 = L.map('mapContainer2').setView(mapCenter2, 15);
         //   Street Maps
         L.tileLayer('http://{s}.google.com/vt?lyrs=m&x={x}&y={y}&z={z}', {
             maxZoom: 20,
             subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
         }).addTo(map);
+        L.tileLayer('http://{s}.google.com/vt?lyrs=m&x={x}&y={y}&z={z}', {
+            maxZoom: 20,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        }).addTo(map2);
         //   Hybrid Maps for Detail
         //   L.tileLayer('http://{s}.google.com/vt?lyrs=s,h&x={x}&y={y}&z={z}', {
         //     maxZoom: 20
@@ -173,5 +199,28 @@
         }
         $('#latitude').on('input', updateMarkerByInputs);
         $('#longitude').on('input', updateMarkerByInputs);
+
+        // Bagian Sumber
+        var marker2 = L.marker(mapCenter2).addTo(map2);
+
+        function updateMarker2(lat, lng) {
+            marker2
+                .setLatLng([lat, lng])
+                .bindPopup("Your location : " + marker2.getLatLng().toString())
+                .openPopup();
+            return false;
+        };
+        map2.on('click', function(e) {
+            let latitude2 = e.latlng.lat.toString().substring(0, 15);
+            let longitude2 = e.latlng.lng.toString().substring(0, 15);
+            $('#latitude2').val(latitude2);
+            $('#longitude2').val(longitude2);
+            updateMarker2(latitude2, longitude2);
+        });
+        var updateMarkerByInputs2 = function() {
+            return updateMarker2($('#latitude2').val(), $('#longitude2').val());
+        }
+        $('#latitude2').on('input', updateMarkerByInputs2);
+        $('#longitude2').on('input', updateMarkerByInputs2);
     </script>
 @endpush

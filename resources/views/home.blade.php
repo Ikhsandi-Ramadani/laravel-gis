@@ -19,28 +19,10 @@
         /* Styling untuk label kecamatan */
         .kecamatan-label {
             text-align: center;
-            white-space: nowrap; /* Mencegah teks terputus */
+            white-space: nowrap;
+            /* Mencegah teks terputus */
         }
     </style>
-
-<style>
-    .icon-explanation {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .icon-row {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .icon-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-</style>
 @endpush
 
 @section('content')
@@ -51,28 +33,28 @@
                     <!-- Tempatkan peta Leaflet di dalam div ini -->
                     <div class="leaflet-map" id="map">
                     </div>
-                </div>
-                <div class="icon-explanation">
-                     <h6>Keterangan</h6>
-                    <div class="icon-row">
-                        <div class="icon-item">
-                            <img src="{{ asset('pamsimas_start.png') }}" alt="Pamsimas Masih Proggres" style="width: 40px; height: 40px;">
+                    <h4 class="my-4">Keterangan :</h4>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <img src="{{ asset('pamsimas_start.png') }}" alt="Pamsimas Masih Proggres"
+                                style="width: 40px; height: 40px;">
                             <span>Pamsimas Masih Proggres</span>
                         </div>
-                        <div class="icon-item">
-                            <img src="{{ asset('pamsimas-selesai.png') }}" alt="Pamsimas Selesai" style="width: 40px; height: 40px;">
+                        <div>
+                            <img src="{{ asset('pamsimas-selesai.png') }}" alt="Pamsimas Selesai"
+                                style="width: 40px; height: 40px;">
                             <span>Pamsimas Selesai</span>
                         </div>
-                        <div class="icon-item">
-                            <img src="{{ asset('pdam_selesai.png') }}" alt="PDAM Masih Proggres" style="width: 40px; height: 40px;">
+                        <div>
+                            <img src="{{ asset('pdam_selesai.png') }}" alt="PDAM Masih Proggres"
+                                style="width: 40px; height: 40px;">
                             <span>PDAM Selesai</span>
                         </div>
-                        <div class="icon-item">
+                        <div>
                             <img src="{{ asset('pdam_start.png') }}" alt="PDAM Selesai" style="width: 40px; height: 40px;">
                             <span>PDAM Masih Proggres</span>
                         </div>
-                    </div> 
-                   
+                    </div>
                 </div>
             </div>
         </div>
@@ -114,7 +96,8 @@
     <script src="{{ asset('assets/vendor/libs/leaflet/leaflet.js') }}"></script>
     <script>
         // Token Mapbox (Ganti dengan token valid jika diperlukan)
-        var accessToken = 'pk.eyJ1IjoiaWtoc2FuZGlyYW1hZGFuaSIsImEiOiJjbG03bHk5OHAwMXM0M2Nvc240M2g1bG0wIn0.e-7lftp8mBogPgouQbxCKQ';
+        var accessToken =
+            'pk.eyJ1IjoiaWtoc2FuZGlyYW1hZGFuaSIsImEiOiJjbG03bHk5OHAwMXM0M2Nvc240M2g1bG0wIn0.e-7lftp8mBogPgouQbxCKQ';
 
         // Mendefinisikan layer peta dari Mapbox dan OpenStreetMap
         var peta1 = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=' + accessToken, {
@@ -153,7 +136,7 @@
         var map = L.map('map', {
             center: [-4.027078357839807, 120.17884135764147], // Lokasi awal peta
             zoom: 10, // Zoom level awal
-            layers: [peta1, 
+            layers: [peta1,
                 @foreach ($kecamatans as $data)
                     data{{ $data->id }},
                 @endforeach
@@ -161,35 +144,27 @@
             ]
         });
 
-        // Menyiapkan data proyek per kecamatan
-        @php
-        $projectGaris = App\Models\Projects::all();
-        $projectGarisPerKecamatan = []; // Array untuk menyimpan koordinat proyek per kecamatan
-        foreach ($projectGaris as $project) {
-            $projectGarisPerKecamatan[$project->kecamatan_id][] = [
-                'lat' => $project->latitude,
-                'lng' => $project->longitude
-            ];
-        }
-        @endphp
-
-        // Menggambar garis putus-putus untuk setiap kecamatan berdasarkan koordinat proyek
-        @foreach($projectGarisPerKecamatan as $kecamatanId => $coordinates)
-            var projectCoordinates{{ $kecamatanId }} = [
-                @foreach($coordinates as $coordinate)
-                    [{{ $coordinate['lat'] }}, {{ $coordinate['lng'] }}],
-                @endforeach
+        // Iterasi melalui semua project untuk menambahkan polyline
+        @foreach ($projects as $project)
+            var latlngs = [
+                [{{ $project->latitude }}, {{ $project->longitude }}], // Koordinat tujuan
+                [{{ $project->sumber_lat }}, {{ $project->sumber_long }}] // Koordinat sumber
             ];
 
-            var polyline{{ $kecamatanId }} = L.polyline(projectCoordinates{{ $kecamatanId }}, {
-                color: 'red',           // Warna garis
-                weight: 3,              // Ketebalan garis
-                dashArray: '5, 10'      // Pola garis putus-putus
+            // Menghubungkan dua koordinat dengan Polyline
+            var polyline = L.polyline(latlngs, {
+                color: 'blue'
             }).addTo(map);
-
-            // Menyesuaikan tampilan peta agar sesuai dengan bounds dari garis yang digambar
-            map.fitBounds(polyline{{ $kecamatanId }}.getBounds());
         @endforeach
+
+        // Zoom peta agar menampilkan semua polyline
+        var group = new L.featureGroup({!! json_encode(
+            $projects->map(function ($project) {
+                return [[$project->latitude, $project->longitude], [$project->sumber_lat, $project->sumber_long]];
+            }),
+        ) !!});
+        map.fitBounds(group.getBounds());
+
 
         // Menambahkan kontrol layer untuk memilih peta dasar dan overlay
         var baseMaps = {
@@ -241,16 +216,16 @@
 
             // Menambahkan marker dengan ikon yang sesuai dan popup yang berisi informasi proyek
             L.marker([{{ $project->latitude }}, {{ $project->longitude }}], {
-                icon: L.icon({
-                    iconUrl: iconUrl, // Menentukan URL ikon
-                    iconSize: [40, 40] // Ukuran ikon
-                })
-            }).addTo(project)
-            .bindPopup(
-                '<b>{{ $project->nama }}</b><br>' +
-                'Kecamatan: {{ $project->kecamatan->nama }}<br>' +
-                'Status: {{ $project->status == 0 ? 'Dalam Proses' : 'Selesai' }}'
-            );
+                    icon: L.icon({
+                        iconUrl: iconUrl, // Menentukan URL ikon
+                        iconSize: [40, 40] // Ukuran ikon
+                    })
+                }).addTo(project)
+                .bindPopup(
+                    '<b>{{ $project->nama }}</b><br>' +
+                    'Kecamatan: {{ $project->kecamatan->nama }}<br>' +
+                    'Status: {{ $project->status == 0 ? 'Dalam Proses' : 'Selesai' }}'
+                );
         @endforeach
     </script>
 @endpush
