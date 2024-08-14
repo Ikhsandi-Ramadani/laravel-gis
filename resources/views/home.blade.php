@@ -22,6 +22,25 @@
             white-space: nowrap; /* Mencegah teks terputus */
         }
     </style>
+
+<style>
+    .icon-explanation {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .icon-row {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .icon-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+</style>
 @endpush
 
 @section('content')
@@ -30,7 +49,30 @@
             <div class="card h-100">
                 <div class="card-body">
                     <!-- Tempatkan peta Leaflet di dalam div ini -->
-                    <div class="leaflet-map" id="map"></div>
+                    <div class="leaflet-map" id="map">
+                    </div>
+                </div>
+                <div class="icon-explanation">
+                     <h6>Keterangan</h6>
+                    <div class="icon-row">
+                        <div class="icon-item">
+                            <img src="{{ asset('pamsimas_start.png') }}" alt="Pamsimas Masih Proggres" style="width: 40px; height: 40px;">
+                            <span>Pamsimas Masih Proggres</span>
+                        </div>
+                        <div class="icon-item">
+                            <img src="{{ asset('pamsimas-selesai.png') }}" alt="Pamsimas Selesai" style="width: 40px; height: 40px;">
+                            <span>Pamsimas Selesai</span>
+                        </div>
+                        <div class="icon-item">
+                            <img src="{{ asset('pdam_selesai.png') }}" alt="PDAM Masih Proggres" style="width: 40px; height: 40px;">
+                            <span>PDAM Selesai</span>
+                        </div>
+                        <div class="icon-item">
+                            <img src="{{ asset('pdam_start.png') }}" alt="PDAM Selesai" style="width: 40px; height: 40px;">
+                            <span>PDAM Masih Proggres</span>
+                        </div>
+                    </div> 
+                   
                 </div>
             </div>
         </div>
