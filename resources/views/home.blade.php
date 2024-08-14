@@ -144,27 +144,6 @@
             ]
         });
 
-        // Iterasi melalui semua project untuk menambahkan polyline
-        @foreach ($projects as $project)
-            var latlngs = [
-                [{{ $project->latitude }}, {{ $project->longitude }}], // Koordinat tujuan
-                [{{ $project->sumber_lat }}, {{ $project->sumber_long }}] // Koordinat sumber
-            ];
-
-            // Menghubungkan dua koordinat dengan Polyline
-            var polyline = L.polyline(latlngs, {
-                color: 'blue'
-            }).addTo(map);
-        @endforeach
-
-        // Zoom peta agar menampilkan semua polyline
-        var group = new L.featureGroup({!! json_encode(
-            $projects->map(function ($project) {
-                return [[$project->latitude, $project->longitude], [$project->sumber_lat, $project->sumber_long]];
-            }),
-        ) !!});
-        map.fitBounds(group.getBounds());
-
 
         // Menambahkan kontrol layer untuk memilih peta dasar dan overlay
         var baseMaps = {
@@ -226,6 +205,30 @@
                     'Kecamatan: {{ $project->kecamatan->nama }}<br>' +
                     'Status: {{ $project->status == 0 ? 'Dalam Proses' : 'Selesai' }}'
                 );
+
+            L.marker([{{ $project->sumber_lat }}, {{ $project->sumber_long }}], {
+                    icon: L.icon({
+                        iconUrl: iconUrl, // Menentukan URL ikon
+                        iconSize: [40, 40] // Ukuran ikon
+                    })
+                }).addTo(project)
+                .bindPopup(
+                    '<b>Sumber</b><br>' 
+                );
+        @endforeach
+
+        @foreach ($projects as $project)
+
+            // Definisikan dua koordinat
+            var latlngs = [
+                [{{ $project->latitude }}, {{ $project->longitude }}], // Koordinat pertama
+                [{{ $project->sumber_lat }}, {{ $project->sumber_long }}] // Koordinat kedua
+            ];
+
+            // Menghubungkan dua koordinat dengan Polyline
+            var polyline = L.polyline(latlngs, {
+                color: 'blue'
+            }).addTo(map);
         @endforeach
     </script>
 @endpush
