@@ -206,14 +206,15 @@
                     'Status: {{ $project->status == 0 ? 'Dalam Proses' : 'Selesai' }}'
                 );
 
+            var icon_sumber = "{{ asset('pamsimas_start.png') }}";
             L.marker([{{ $project->sumber_lat }}, {{ $project->sumber_long }}], {
                     icon: L.icon({
-                        iconUrl: iconUrl, // Menentukan URL ikon
+                        iconUrl: icon_sumber, // Menentukan URL ikon
                         iconSize: [40, 40] // Ukuran ikon
                     })
                 }).addTo(project)
                 .bindPopup(
-                    '<b>Sumber</b><br>' 
+                    '<b>Sumber</b><br>'
                 );
         @endforeach
 
